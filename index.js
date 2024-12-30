@@ -50,14 +50,14 @@ app.get('/', (req, res) => {
   return res.status(200).json('good');
 })
 
-app.listen(8000, async () => {
+app.listen(8000, () => {
   console.log('Server is running on port 8000');
-  await makeBlog();
+  makeBlog();
 })
 
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
 
-async function makeBlog() {
+function makeBlog() {
   console.log("Authorizing...");
   const { client_secret, client_id, redirect_uris } = cred.web;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
@@ -68,7 +68,7 @@ async function makeBlog() {
   const blogger = google.blogger({ version: 'v3', oAuth2Client });
   
   console.log('Thinking...')
-  const content = await model.generateContent([prompt]);
+  const content = model.generateContent([prompt]);
   console.log(content);
   content.then(content => console.log(content));
   // .then(content => {
