@@ -58,73 +58,15 @@ app.listen(8000, async () => {
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
 
 async function makeBlog() {
-  // Load client secrets from a file
   console.log("Authorizing...");
-  await authorize(cred, createPost);
-  // setInterval(makeBlog(), 3600000);
-}
-
-/**
- * Authorize a client with credentials, then call the Blogger API.
- */
-async function authorize(credentials, callback) {
-  const { client_secret, client_id, redirect_uris } = credentials.web;
+  const { client_secret, client_id, redirect_uris } = cred.web;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-
-  // Check if token already exists
-  // fs.readFile(TOKEN_PATH, (err, token) => {
-    // if (err) return console.log('token not found');
-    oAuth2Client.setCredentials(token);
-    console.log('authorised...');
-    await callback(oAuth2Client);
-    // });
-}
-
-/**
- * Get and store new token after prompting for user authorization.
-*/
-function getAccessToken(oAuth2Client, callback) {
-  const authUrl = oAuth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: SCOPES,
-  });
-  console.log('Authorize this app by visiting this URL:', authUrl);
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  rl.question('Enter the code from that page here: ', (code) => {
-    rl.close();
-    oAuth2Client.getToken(code, (err, token) => {
-      if (err) return console.error('Error retrieving access token', err);
-      oAuth2Client.setCredentials(token);
-      // Store the token to disk for later program executions
-      fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-        if (err) console.error(err);
-      });
-      callback(oAuth2Client);
-    });
-  });
-}
-
-async function generateBlog() {
-  console.log('Generating');
-  try {
-    console.log('trying');
-    result = await model.generateContent([prompt]);
-    console.log(result);
-    return result?.response?.text()
-  } catch (error) {
-    console.log(error);
-  async }
-}
-
-/**
- * Create a blog post.
- */
-async function createPost(auth) {
-  const blogger = google.blogger({ version: 'v3', auth });
-
+  
+  oAuth2Client.setCredentials(token);
+  console.log('authorised...');
+  
+  const blogger = google.blogger({ version: 'v3', oAuth2Client });
+  
   console.log('Thinking...')
   const content = await model.generateContent([prompt]);
   console.log(content);
@@ -153,4 +95,59 @@ async function createPost(auth) {
   //   );
   // }).catch(err => console.log(err));
   console.log('exiting');
+  
+  // setInterval(makeBlog(), 3600000);
 }
+
+// /**
+//  * Authorize a client with credentials, then call the Blogger API.
+//  */
+// async function authorize(credentials, callback) {
+//     await callback(oAuth2Client);
+//     // });
+// }
+
+// /**
+//  * Get and store new token after prompting for user authorization.
+// */
+// function getAccessToken(oAuth2Client, callback) {
+//   const authUrl = oAuth2Client.generateAuthUrl({
+//     access_type: 'offline',
+//     scope: SCOPES,
+//   });
+//   console.log('Authorize this app by visiting this URL:', authUrl);
+//   const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout,
+//   });
+//   rl.question('Enter the code from that page here: ', (code) => {
+//     rl.close();
+//     oAuth2Client.getToken(code, (err, token) => {
+//       if (err) return console.error('Error retrieving access token', err);
+//       oAuth2Client.setCredentials(token);
+//       // Store the token to disk for later program executions
+//       fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+//         if (err) console.error(err);
+//       });
+//       callback(oAuth2Client);
+//     });
+//   });
+// }
+
+// async function generateBlog() {
+//   console.log('Generating');
+//   try {
+//     console.log('trying');
+//     result = await model.generateContent([prompt]);
+//     console.log(result);
+//     return result?.response?.text()
+//   } catch (error) {
+//     console.log(error);
+//   async }
+// }
+
+// /**
+//  * Create a blog post.
+//  */
+// async function createPost(auth) {
+// }
