@@ -134,7 +134,7 @@ function createPost(auth) {
   
     const blogId = '5038220757806821788'; // Replace with your blog's ID
     const post = {
-      content: content?.response?.text,
+      content: content?.response?.text(),
     };
   
     console.log('posting');
