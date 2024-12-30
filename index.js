@@ -128,6 +128,7 @@ async function createPost(auth) {
   console.log('Thinking...')
   const content = await model.generateContent([prompt]);
   console.log(content);
+  content.then(content => console.log(content));
   // .then(content => {
   //   // const content = "blog";
   
