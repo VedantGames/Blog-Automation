@@ -30,6 +30,7 @@ app.use(cors({
 }))
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { content } = require('googleapis/build/src/apis/content');
 
 // Specify the scope for Blogger API
 const SCOPES = ['https://www.googleapis.com/auth/blogger'];
@@ -118,30 +119,31 @@ function getAccessToken(oAuth2Client, callback) {
 /**
  * Create a blog post.
  */
-async function createPost(auth) {
+function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  const content = await generateBlog();
-  // const content = "blog";
-
-  // console.log("blog: ", content, "done");
-  console.log('thaught');
-
-  const blogId = '5038220757806821788'; // Replace with your blog's ID
-  const post = {
-    content: content,
-  };
-
-  console.log('posting');
-  blogger.posts.insert(
-    {
-      blogId: blogId,
-      requestBody: post,
-    },
-    (err, res) => {
-      if (err) return console.error('The API returned an error: ' + err);
-      console.log(`Post published: ${res.data.url}`);
-    }
-  );
+  generateBlog().then(content => {
+    // const content = "blog";
+  
+    // console.log("blog: ", content, "done");
+    console.log('thaught');
+  
+    const blogId = '5038220757806821788'; // Replace with your blog's ID
+    const post = {
+      content: content,
+    };
+  
+    console.log('posting');
+    blogger.posts.insert(
+      {
+        blogId: blogId,
+        requestBody: post,
+      },
+      (err, res) => {
+        if (err) return console.error('The API returned an error: ' + err);
+        console.log(`Post published: ${res.data.url}`);
+      }
+    );
+  }).catch(err => console.log(err));
 }
