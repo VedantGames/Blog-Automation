@@ -34,6 +34,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 // Specify the scope for Blogger API
 const SCOPES = ['https://www.googleapis.com/auth/blogger'];
 const TOKEN_PATH = 'token.json';
+const token = {"access_token":"ya29.a0ARW5m76eE6i1EAkndDqaSzK-Db7tCvhlHKtkB8uopGzuuJJIEVR3bRjjrVOzfr_iT8CIau3vX8S1rzmgfNNB6PhWd84D3QR_lZcfHknzDSPqH-gyMaZcstQN4ZgYultiQ2tJapoeytQDnDX2b1vlklXezUo6u8dBhG0aCgYKAZQSARMSFQHGX2MiEhL29t50UN-PytWbYS108Q0170","scope":"https://www.googleapis.com/auth/blogger","token_type":"Bearer","expiry_date":1735555814309}
 const aikey = 'AIzaSyBG6zjR6SAc2UfODa_8BIMvKmrfk8QT7hc';
 
 const genAI = new GoogleGenerativeAI(aikey);
@@ -66,6 +67,7 @@ const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.
 
 function makeBlog() {
   // Load client secrets from a file
+  console.log("Authorizing...");
   authorize(cred, createPost);
   // setInterval(makeBlog(), 3600000);
 }
@@ -79,7 +81,7 @@ function authorize(credentials, callback) {
 
   // Check if token already exists
   fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getAccessToken(oAuth2Client, callback);
+    if (err) return console.log('token not found');
     oAuth2Client.setCredentials(JSON.parse(token));
     callback(oAuth2Client);
   });
