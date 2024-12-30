@@ -80,11 +80,11 @@ function authorize(credentials, callback) {
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
   // Check if token already exists
-  fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return console.log('token not found');
-    oAuth2Client.setCredentials(JSON.parse(token));
+  // fs.readFile(TOKEN_PATH, (err, token) => {
+    // if (err) return console.log('token not found');
+    oAuth2Client.setCredentials(token);
     callback(oAuth2Client);
-  });
+  // });
 }
 
 /**
