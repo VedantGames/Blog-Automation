@@ -66,7 +66,7 @@ const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.
 
 function makeBlog() {
   // Load client secrets from a file
-  authorize(JSON.parse(cred), createPost);
+  authorize(cred, createPost);
   // setInterval(makeBlog(), 3600000);
 }
 
