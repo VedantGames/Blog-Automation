@@ -70,7 +70,7 @@ function makeBlog() {
   console.log('Thinking...')
   const content = model.generateContent([prompt]);
   console.log(content);
-  content.then(content => console.log(content));
+  content.then(content => console.log(content)).catch(err => console.log(err));
   // .then(content => {
   //   // const content = "blog";
   
