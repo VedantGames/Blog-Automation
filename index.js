@@ -44,20 +44,16 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const prompt = "Write a 5-10 page detailed blog post on a unique and interesting scientific topic. The topic should explore a lesser-known scientific law, theory, or phenomenon. Make sure to cover the topic in-depth, including its historical context, key principles, real-world applications, and the impact it has had on science and technology. The blog should be engaging, informative, and suitable for a general audience. It should not repeat any topics that have been covered in previous blog postsFocus on topics related to various scientific fields, including physics, biology, chemistry, astronomy, and more. The blog should explore new and thought-provoking questions or discoveries in science. Do not repeat the same topic from previous blogs; each blog must be based on a fresh and exciting scientific law, theory, or question.Ensure the blog is around 5-10 pages in length, providing ample explanation, context, and examples. The tone should be informative yet approachable, with clear explanations for complex ideas.Please ensure that the blog is formatted in clean HTML. Use proper HTML tags like <h1>, <h2>, <p>, and <ul> for headings, paragraphs, and lists. Avoid using markdown symbols such as asterisks * or hashtags #. Ensure the blog is visually appealing when pasted into a blog editor, with clear, structured formatting for easy readability. do not make <html> and <head> and <body> tag only write content in between of the body tag";
 const prompt1 = "write a 5-10 page blog on a different and interesting scientific law or question. dont repeat the topic of the blog."
 
-// app.get('/', (req, res) => {
-//   console.log('blogging');
-//   makeBlog();
-//   return res.status(200).json('good');
-// })
+app.get('/', (req, res) => {
+  console.log('blogging');
+  makeBlog();
+  return res.status(200).json('good');
+})
 
-// app.listen(8000, async () => {
-//   console.log('Server is running on port 8000');
-//   await makeBlog();
-// })
-
-module.exports = async () => {
+app.listen(8000, async () => {
+  console.log('Server is running on port 8000');
   await makeBlog();
-}
+})
 
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
 
@@ -130,9 +126,7 @@ async function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  const content = await model.generateContent([prompt]);
-  console.log('Content: ', content);
-  // content.then(content => console.log('Contenttttt: ', content));
+  console.log(await model.generateContent([prompt]));
   // .then(content => {
   //   // const content = "blog";
   
