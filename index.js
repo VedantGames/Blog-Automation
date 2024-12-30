@@ -126,7 +126,7 @@ function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  console.log(model.generateContent([prompt]));
+  model.generateContent([prompt]).then(content => console.log(content));
   // .then(content => {
   //   // const content = "blog";
   
