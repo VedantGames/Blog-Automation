@@ -69,7 +69,7 @@ async function makeBlog() {
   
   console.log('Thinking...')
   var content = await model.generateContent([prompt]);
-  console.log(content);
+  console.log(content?.response?.text);
   // content.then(content => console.log(content)).catch(err => console.log(err)).finally(() => console.log('doneeee'));
   // .then(content => {
   //   // const content = "blog";
