@@ -129,8 +129,8 @@ function createPost(auth) {
   model.generateContent([prompt]).then(content => {
     // const content = "blog";
   
-    // console.log("blog: ", content, "done");
-    console.log('thaught');
+    console.log("blog: ", content, "done");
+    // console.log('thaught');
   
     const blogId = '5038220757806821788'; // Replace with your blog's ID
     const post = {
