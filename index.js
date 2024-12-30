@@ -126,28 +126,29 @@ function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  model.generateContent([prompt]).then(content => {
-    // const content = "blog";
+  console.log(model.generateContent([prompt]));
+  // .then(content => {
+  //   // const content = "blog";
   
-    console.log("blog: ", content, "done");
-    // console.log('thaught');
+  //   console.log("blog: ", content, "done");
+  //   // console.log('thaught');
   
-    const blogId = '5038220757806821788'; // Replace with your blog's ID
-    const post = {
-      content: content?.response?.text(),
-    };
+  //   const blogId = '5038220757806821788'; // Replace with your blog's ID
+  //   const post = {
+  //     content: content?.response?.text(),
+  //   };
   
-    console.log('posting');
-    blogger.posts.insert(
-      {
-        blogId: blogId,
-        requestBody: post,
-      },
-      (err, res) => {
-        if (err) return console.error('The API returned an error: ' + err);
-        console.log(`Post published: ${res.data.url}`);
-      }
-    );
-  }).catch(err => console.log(err));
+  //   console.log('posting');
+  //   blogger.posts.insert(
+  //     {
+  //       blogId: blogId,
+  //       requestBody: post,
+  //     },
+  //     (err, res) => {
+  //       if (err) return console.error('The API returned an error: ' + err);
+  //       console.log(`Post published: ${res.data.url}`);
+  //     }
+  //   );
+  // }).catch(err => console.log(err));
   console.log('exiting');
 }
