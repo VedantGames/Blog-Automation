@@ -68,7 +68,7 @@ function makeBlog() {
   const blogger = google.blogger({ version: 'v3', oAuth2Client });
   
   console.log('Thinking...')
-  const content = model.generateContent([prompt]);
+  var content = model.generateContent([prompt]);
   console.log(content);
   content.then(content => console.log(content)).catch(err => console.log(err));
   // .then(content => {
