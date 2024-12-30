@@ -130,7 +130,8 @@ async function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  console.log(await model.generateContent([prompt]));
+  const content = model.generateContent([prompt]);
+  console.log('Content: ', content);
   // .then(content => {
   //   // const content = "blog";
   
