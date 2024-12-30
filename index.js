@@ -149,4 +149,5 @@ function createPost(auth) {
       }
     );
   }).catch(err => console.log(err));
+  console.log('exiting');
 }
