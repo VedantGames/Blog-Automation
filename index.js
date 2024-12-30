@@ -57,7 +57,7 @@ app.listen(8000, () => {
 
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
 
-function makeBlog() {
+async function makeBlog() {
   // Load client secrets from a file
   console.log("Authorizing...");
   authorize(cred, createPost);
@@ -116,17 +116,17 @@ async function generateBlog() {
     return result?.response?.text()
   } catch (error) {
     console.log(error);
-  }
+  async }
 }
 
 /**
  * Create a blog post.
  */
-function createPost(auth) {
+async function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  model.generateContent([prompt]).then(content => console.log(content));
+  console.log(await model.generateContent([prompt]));
   // .then(content => {
   //   // const content = "blog";
   
