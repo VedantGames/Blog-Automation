@@ -55,18 +55,6 @@ app.listen(8000, () => {
   makeBlog();
 })
 
-async function generateBlog() {
-  console.log('Generating');
-  try {
-    console.log('trying');
-    result = await model.generateContent([prompt]);
-    console.log(result);
-    return result?.response?.text()
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
 
 function makeBlog() {
@@ -89,12 +77,12 @@ function authorize(credentials, callback) {
     oAuth2Client.setCredentials(token);
     console.log('authorised...');
     callback(oAuth2Client);
-  // });
+    // });
 }
 
 /**
  * Get and store new token after prompting for user authorization.
- */
+*/
 function getAccessToken(oAuth2Client, callback) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
@@ -119,6 +107,18 @@ function getAccessToken(oAuth2Client, callback) {
   });
 }
 
+async function generateBlog() {
+  console.log('Generating');
+  try {
+    console.log('trying');
+    result = await model.generateContent([prompt]);
+    console.log(result);
+    return result?.response?.text()
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /**
  * Create a blog post.
  */
@@ -126,7 +126,7 @@ function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
   console.log('Thinking...')
-  generateBlog().then(content => {
+  model.generateContent([prompt]).then(content => {
     // const content = "blog";
   
     // console.log("blog: ", content, "done");
@@ -134,7 +134,7 @@ function createPost(auth) {
   
     const blogId = '5038220757806821788'; // Replace with your blog's ID
     const post = {
-      content: content,
+      content: content?.response?.text,
     };
   
     console.log('posting');
