@@ -83,6 +83,7 @@ function authorize(credentials, callback) {
   // fs.readFile(TOKEN_PATH, (err, token) => {
     // if (err) return console.log('token not found');
     oAuth2Client.setCredentials(token);
+    console.log('authorised...');
     callback(oAuth2Client);
   // });
 }
@@ -120,6 +121,7 @@ function getAccessToken(oAuth2Client, callback) {
 async function createPost(auth) {
   const blogger = google.blogger({ version: 'v3', auth });
 
+  console.log('Thinking...')
   const content = await generateBlog();
   // const content = "blog";
 
@@ -129,7 +131,9 @@ async function createPost(auth) {
   const post = {
     content: content,
   };
+  console.log('thaught');
 
+  console.log('posting');
   blogger.posts.insert(
     {
       blogId: blogId,
