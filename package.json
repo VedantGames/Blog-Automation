@@ -1,0 +1,26 @@
+{
+  "name": "blog-automation",
+  "version": "1.0.0",
+  "description": "Automates blog writing process",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VedantGames/Blog-Automation.git"
+  },
+  "author": "Vedant Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VedantGames/Blog-Automation/issues"
+  },
+  "homepage": "https://github.com/VedantGames/Blog-Automation#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "googleapis": "^144.0.0",
+    "openai": "^4.77.0"
+  }
+}
