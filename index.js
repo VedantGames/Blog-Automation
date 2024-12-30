@@ -50,9 +50,9 @@ app.get('/', (req, res) => {
   return res.status(200).json('good');
 })
 
-app.listen(8000, () => {
+app.listen(8000, async () => {
   console.log('Server is running on port 8000');
-  makeBlog();
+  await makeBlog();
 })
 
 const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.apps.googleusercontent.com","project_id":"myproject1-344610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost:3000/oauth2callback"],"javascript_origins":["https://www.blogger.com"]}};
@@ -60,14 +60,14 @@ const cred = {"web":{"client_id":"886703932215-kl68md8g3erkrh75sk7ejeuqual36bda.
 async function makeBlog() {
   // Load client secrets from a file
   console.log("Authorizing...");
-  authorize(cred, createPost);
+  await authorize(cred, createPost);
   // setInterval(makeBlog(), 3600000);
 }
 
 /**
  * Authorize a client with credentials, then call the Blogger API.
  */
-function authorize(credentials, callback) {
+async function authorize(credentials, callback) {
   const { client_secret, client_id, redirect_uris } = credentials.web;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
@@ -76,7 +76,7 @@ function authorize(credentials, callback) {
     // if (err) return console.log('token not found');
     oAuth2Client.setCredentials(token);
     console.log('authorised...');
-    callback(oAuth2Client);
+    await callback(oAuth2Client);
     // });
 }
 
