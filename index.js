@@ -56,8 +56,11 @@ app.listen(8000, () => {
 })
 
 async function generateBlog() {
+  console.log('Generating');
   try {
+    console.log('trying');
     result = await model.generateContent([prompt]);
+    console.log(result);
     return result?.response?.text()
   } catch (error) {
     console.log(error);
