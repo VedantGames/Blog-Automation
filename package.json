@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Automates blog writing process",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,9 +19,10 @@
   "homepage": "https://github.com/VedantGames/Blog-Automation#readme",
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
+    "axios": "^1.7.9",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "googleapis": "^144.0.0",
-    "openai": "^4.77.0"
+    "open": "^10.1.0"
   }
 }
